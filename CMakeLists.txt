@@ -12,3 +12,13 @@ add_executable(Sudoku main.cpp
 )
 
 target_link_libraries(Sudoku sfml-graphics sfml-window sfml-system)
+
+cmake_minimum_required(VERSION 3.10)
+project(Sudoku)
+
+add_subdirectory(googletest)
+
+include_directories(googletest/googletest/include)
+
+add_executable(runTests tests_main.cpp)
+target_link_libraries(runTests gtest gtest_main)

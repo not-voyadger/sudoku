@@ -2,10 +2,10 @@
 	"artifacts" : 
 	[
 		{
-			"path" : "Sudoku.exe"
+			"path" : "runTests.exe"
 		},
 		{
-			"path" : "Sudoku.pdb"
+			"path" : "runTests.pdb"
 		}
 	],
 	"backtrace" : 1,
@@ -14,7 +14,8 @@
 		"commands" : 
 		[
 			"add_executable",
-			"target_link_libraries"
+			"target_link_libraries",
+			"include_directories"
 		],
 		"files" : 
 		[
@@ -28,13 +29,19 @@
 			{
 				"command" : 0,
 				"file" : 0,
-				"line" : 10,
+				"line" : 23,
 				"parent" : 0
 			},
 			{
 				"command" : 1,
 				"file" : 0,
-				"line" : 14,
+				"line" : 24,
+				"parent" : 0
+			},
+			{
+				"command" : 2,
+				"file" : 0,
+				"line" : 21,
 				"parent" : 0
 			}
 		]
@@ -45,15 +52,20 @@
 			"compileCommandFragments" : 
 			[
 				{
-					"fragment" : "-g -fdiagnostics-color=always"
+					"fragment" : "-g -std=gnu++17 -fdiagnostics-color=always"
 				}
 			],
 			"includes" : 
 			[
 				{
+					"backtrace" : 3,
+					"isSystem" : true,
+					"path" : "C:/Users/senec/CLionProjects/Sudoku/googletest/googletest/include"
+				},
+				{
 					"backtrace" : 2,
 					"isSystem" : true,
-					"path" : "C:/Program Files/SFML/SFML-2.5.0/include"
+					"path" : "C:/Users/senec/CLionProjects/Sudoku/googletest/googletest"
 				}
 			],
 			"language" : "CXX",
@@ -61,18 +73,28 @@
 			{
 				"backtraces" : 
 				[
-					1
+					2
 				],
 				"standard" : "17"
 			},
 			"sourceIndexes" : 
 			[
-				0,
-				1
+				0
 			]
 		}
 	],
-	"id" : "Sudoku::@6890427a1f51a3e7e1df",
+	"dependencies" : 
+	[
+		{
+			"backtrace" : 2,
+			"id" : "gtest::@f95b5c00bd49b3b4698d"
+		},
+		{
+			"backtrace" : 2,
+			"id" : "gtest_main::@f95b5c00bd49b3b4698d"
+		}
+	],
+	"id" : "runTests::@6890427a1f51a3e7e1df",
 	"link" : 
 	{
 		"commandFragments" : 
@@ -87,17 +109,17 @@
 			},
 			{
 				"backtrace" : 2,
-				"fragment" : "\"C:\\Program Files\\SFML\\SFML-2.5.0\\lib\\libsfml-graphics-d.a\"",
+				"fragment" : "lib\\libgtest.a",
 				"role" : "libraries"
 			},
 			{
 				"backtrace" : 2,
-				"fragment" : "\"C:\\Program Files\\SFML\\SFML-2.5.0\\lib\\libsfml-window-d.a\"",
+				"fragment" : "lib\\libgtest_main.a",
 				"role" : "libraries"
 			},
 			{
 				"backtrace" : 2,
-				"fragment" : "\"C:\\Program Files\\SFML\\SFML-2.5.0\\lib\\libsfml-system-d.a\"",
+				"fragment" : "lib\\libgtest.a",
 				"role" : "libraries"
 			},
 			{
@@ -107,8 +129,8 @@
 		],
 		"language" : "CXX"
 	},
-	"name" : "Sudoku",
-	"nameOnDisk" : "Sudoku.exe",
+	"name" : "runTests",
+	"nameOnDisk" : "runTests.exe",
 	"paths" : 
 	{
 		"build" : ".",
@@ -120,15 +142,7 @@
 			"name" : "Source Files",
 			"sourceIndexes" : 
 			[
-				0,
-				1
-			]
-		},
-		{
-			"name" : "Header Files",
-			"sourceIndexes" : 
-			[
-				2
+				0
 			]
 		}
 	],
@@ -137,19 +151,8 @@
 		{
 			"backtrace" : 1,
 			"compileGroupIndex" : 0,
-			"path" : "main.cpp",
-			"sourceGroupIndex" : 0
-		},
-		{
-			"backtrace" : 1,
-			"compileGroupIndex" : 0,
 			"path" : "tests_main.cpp",
 			"sourceGroupIndex" : 0
-		},
-		{
-			"backtrace" : 1,
-			"path" : "tests_main.h",
-			"sourceGroupIndex" : 1
 		}
 	],
 	"type" : "EXECUTABLE"
