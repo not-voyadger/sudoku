@@ -2,6 +2,11 @@
 // Created by Arsenii Fadieiev.
 //
 
+// This is a Sudoku game implementation with a graphical interface using SFML.
+// The game includes functionalities for shuffling the board, saving, and loading the game state, and checking for completion.
+// Author: Arsenii Fadieiev
+
+
 #include <SFML/Graphics.hpp>
 #include <vector>
 #include <ctime>
@@ -28,7 +33,8 @@ bool isPlayerEntered[SIZE][SIZE] = {false};
 std::mutex boardMutex;
 std::atomic<bool> gameWon(false);
 
-//
+// This function shuffles the rows and columns of the Sudoku board to create a random puzzle.
+// It works by randomly swapping groups of 3 rows and columns to maintain Sudoku validity.
 void shuffleGame(int board[SIZE][SIZE]) {
     std::srand(static_cast<unsigned int>(std::time(0)));
 
@@ -62,6 +68,9 @@ void shuffleGame(int board[SIZE][SIZE]) {
     }
 }
 
+// Prompts the user to select a difficulty level for the Sudoku puzzle.
+// Difficulty levels adjust the number of pre-filled spaces in the puzzle.
+// 1-Easy, 2-Medium, 3-Hard. Default value is 1-Easy.
 int chooseDifficulty() {
     std::string difficulty;
     std::cout << "Choose difficulty level (1-Easy, 2-Medium, 3-Hard): ";
@@ -76,7 +85,7 @@ int chooseDifficulty() {
     } else if (difficulty == "3") {
         numberOfSpaces = 60;
         diffName = "Hard";
-    } else{
+    } else {
         std::cout << "Error occurred. Default difficulty 'Idiot' was chosen." << std::endl;
         numberOfSpaces = 1;
         diffName = "Idiot";
@@ -85,6 +94,9 @@ int chooseDifficulty() {
     return numberOfSpaces;
 }
 
+// This function renders the Sudoku game board using SFML Library.
+// It draws the grid and the numbers in each cell, highlighting the selected cell.
+// Also handles the display of the 'Save' and 'Load' buttons.
 void displayGame(int board[SIZE][SIZE]) {
     std::vector<std::pair<int, int>> positions;
     for (int i = 0; i < SIZE; ++i) {
@@ -103,6 +115,8 @@ void displayGame(int board[SIZE][SIZE]) {
     }
 }
 
+// This function checks if the current board matches the original solved puzzle.
+// If all cells match, the puzzle is considered solved.
 bool isSudokuSolved(int board[SIZE][SIZE]) {
     for (int i = 0; i < SIZE; ++i) {
         for (int j = 0; j < SIZE; ++j) {
@@ -114,6 +128,8 @@ bool isSudokuSolved(int board[SIZE][SIZE]) {
     return true;
 }
 
+// This function draws the Sudoku board and user interface elements on the SFML window.
+// It handles the drawing of cells, the board grid, and buttons for 'Save' and 'Load'.
 void drawBoard(sf::RenderWindow &window, int board[SIZE][SIZE], bool saveClicked, bool loadClicked) {
     sf::Font font;
     if (!font.loadFromFile("arial.ttf")) {
@@ -190,6 +206,7 @@ void drawBoard(sf::RenderWindow &window, int board[SIZE][SIZE], bool saveClicked
     window.display();
 }
 
+// This function shows Congratulation window after beating the game.
 void showCongratulations() {
     sf::RenderWindow congratsWindow(sf::VideoMode(400, 200), "Congratulations!");
 
@@ -220,6 +237,20 @@ void showCongratulations() {
     }
 }
 
+// The saveGame function saves the current game state to a "save.txt" file using a separate thread.
+// If in current game state there are some empty cells, it will write it as "0", cells, entered by player
+// are saved as negative number. Numbers provided by game are positive numbers.
+// Example of save.txt file:
+//  Medium
+//  4 -1 3 8 7 6 -1 0 9
+//  0 0 7 5 0 0 8 4 0
+//  0 1 9 0 0 3 7 0 0
+//  6 0 2 3 0 8 1 0 7
+//  9 8 5 0 0 7 0 2 4
+//  0 7 0 0 2 0 6 5 8
+//  5 0 4 0 8 0 9 0 0
+//  0 0 0 0 0 5 0 0 2
+//  7 2 0 9 0 4 0 0 0
 void saveGame(const int board[SIZE][SIZE], const std::string &fileName) {
     std::thread saveThread([=]() {
         std::lock_guard<std::mutex> lock(boardMutex);
@@ -250,6 +281,9 @@ void saveGame(const int board[SIZE][SIZE], const std::string &fileName) {
     saveThread.join();
 }
 
+// The loadGame function loads saved gameState from "save.txt" file using a separate thread.
+// Function saves different number "classes", 0`s will be loaded as empty cells, negative numbers will have
+// playerEntered attribute and positive numbers will be loaded as cells, provided by game.
 void loadGame(int board[SIZE][SIZE], const std::string &fileName) {
     std::thread loadThread([&, fileName]() {
         std::ifstream inFile(fileName);
@@ -293,6 +327,8 @@ void loadGame(int board[SIZE][SIZE], const std::string &fileName) {
     loadThread.join();
 }
 
+// This function starts a separate thread to periodically check if the player has solved the Sudoku puzzle.
+// If the puzzle is solved, the game is marked as won and a congratulatory window will be displayed.
 void startWinCheckThread(int board[SIZE][SIZE]) {
     std::thread winCheckThread([&]() {
         while (!gameWon) {
@@ -307,12 +343,13 @@ void startWinCheckThread(int board[SIZE][SIZE]) {
     winCheckThread.detach();
 }
 
-
+// Mouse click check.
 bool isButtonClicked(const sf::RectangleShape &button, const sf::Vector2i &mousePosition) {
     return button.getGlobalBounds().contains(sf::Vector2f(mousePosition));
 }
 
-
+// The main function initializes the game, starts the game loop, and handles user input.
+// It displays the game board, processes mouse and keyboard events, and checks for a win condition.
 int main() {
     int board[SIZE][SIZE] = {
         {5, 3, 4, 6, 7, 8, 9, 1, 2},

@@ -47,19 +47,19 @@ cmake_ninja_workdir = C$:/Users/senec/CLionProjects/Sudoku/cmake-build-debug/
 #############################################
 # Order-only phony target for Sudoku
 
-build cmake_object_order_depends_target_Sudoku: phony || .
+build cmake_object_order_depends_target_Sudoku: phony || cmake_object_order_depends_target_gtest cmake_object_order_depends_target_gtest_main
 
 build CMakeFiles/Sudoku.dir/main.cpp.obj: CXX_COMPILER__Sudoku_unscanned_Debug C$:/Users/senec/CLionProjects/Sudoku/main.cpp || cmake_object_order_depends_target_Sudoku
   DEP_FILE = CMakeFiles\Sudoku.dir\main.cpp.obj.d
   FLAGS = -g -std=gnu++17 -fdiagnostics-color=always
-  INCLUDES = -IC:/Users/senec/CLionProjects/Sudoku/googletest/googletest/include -isystem "C:/Program Files/SFML/SFML-2.5.0/include"
+  INCLUDES = -isystem C:/Users/senec/CLionProjects/Sudoku/googletest/googletest/include -isystem "C:/Program Files/SFML/SFML-2.5.0/include" -isystem C:/Users/senec/CLionProjects/Sudoku/googletest/googletest
   OBJECT_DIR = CMakeFiles\Sudoku.dir
   OBJECT_FILE_DIR = CMakeFiles\Sudoku.dir
 
 build CMakeFiles/Sudoku.dir/tests_main.cpp.obj: CXX_COMPILER__Sudoku_unscanned_Debug C$:/Users/senec/CLionProjects/Sudoku/tests_main.cpp || cmake_object_order_depends_target_Sudoku
   DEP_FILE = CMakeFiles\Sudoku.dir\tests_main.cpp.obj.d
   FLAGS = -g -std=gnu++17 -fdiagnostics-color=always
-  INCLUDES = -IC:/Users/senec/CLionProjects/Sudoku/googletest/googletest/include -isystem "C:/Program Files/SFML/SFML-2.5.0/include"
+  INCLUDES = -isystem C:/Users/senec/CLionProjects/Sudoku/googletest/googletest/include -isystem "C:/Program Files/SFML/SFML-2.5.0/include" -isystem C:/Users/senec/CLionProjects/Sudoku/googletest/googletest
   OBJECT_DIR = CMakeFiles\Sudoku.dir
   OBJECT_FILE_DIR = CMakeFiles\Sudoku.dir
 
@@ -71,9 +71,9 @@ build CMakeFiles/Sudoku.dir/tests_main.cpp.obj: CXX_COMPILER__Sudoku_unscanned_D
 #############################################
 # Link the executable Sudoku.exe
 
-build Sudoku.exe: CXX_EXECUTABLE_LINKER__Sudoku_Debug CMakeFiles/Sudoku.dir/main.cpp.obj CMakeFiles/Sudoku.dir/tests_main.cpp.obj | C$:/Program$ Files/SFML/SFML-2.5.0/lib/libsfml-graphics-d.a C$:/Program$ Files/SFML/SFML-2.5.0/lib/libsfml-window-d.a C$:/Program$ Files/SFML/SFML-2.5.0/lib/libsfml-system-d.a
+build Sudoku.exe: CXX_EXECUTABLE_LINKER__Sudoku_Debug CMakeFiles/Sudoku.dir/main.cpp.obj CMakeFiles/Sudoku.dir/tests_main.cpp.obj | C$:/Program$ Files/SFML/SFML-2.5.0/lib/libsfml-graphics-d.a C$:/Program$ Files/SFML/SFML-2.5.0/lib/libsfml-window-d.a C$:/Program$ Files/SFML/SFML-2.5.0/lib/libsfml-system-d.a lib/libgtest.a lib/libgtest_main.a lib/libgtest.a || lib/libgtest.a lib/libgtest_main.a
   FLAGS = -g
-  LINK_LIBRARIES = "C:/Program Files/SFML/SFML-2.5.0/lib/libsfml-graphics-d.a"  "C:/Program Files/SFML/SFML-2.5.0/lib/libsfml-window-d.a"  "C:/Program Files/SFML/SFML-2.5.0/lib/libsfml-system-d.a"  -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
+  LINK_LIBRARIES = "C:/Program Files/SFML/SFML-2.5.0/lib/libsfml-graphics-d.a"  "C:/Program Files/SFML/SFML-2.5.0/lib/libsfml-window-d.a"  "C:/Program Files/SFML/SFML-2.5.0/lib/libsfml-system-d.a"  lib/libgtest.a  lib/libgtest_main.a  lib/libgtest.a  -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   OBJECT_DIR = CMakeFiles\Sudoku.dir
   POST_BUILD = cd .
   PRE_LINK = cd .
@@ -88,12 +88,12 @@ build Sudoku.exe: CXX_EXECUTABLE_LINKER__Sudoku_Debug CMakeFiles/Sudoku.dir/main
 #############################################
 # Order-only phony target for runTests
 
-build cmake_object_order_depends_target_runTests: phony || cmake_object_order_depends_target_gtest cmake_object_order_depends_target_gtest_main
+build cmake_object_order_depends_target_runTests: phony || .
 
 build CMakeFiles/runTests.dir/tests_main.cpp.obj: CXX_COMPILER__runTests_unscanned_Debug C$:/Users/senec/CLionProjects/Sudoku/tests_main.cpp || cmake_object_order_depends_target_runTests
   DEP_FILE = CMakeFiles\runTests.dir\tests_main.cpp.obj.d
   FLAGS = -g -std=gnu++17 -fdiagnostics-color=always
-  INCLUDES = -isystem C:/Users/senec/CLionProjects/Sudoku/googletest/googletest/include -isystem C:/Users/senec/CLionProjects/Sudoku/googletest/googletest
+  INCLUDES = -IC:/Users/senec/CLionProjects/Sudoku/googletest/googletest/include
   OBJECT_DIR = CMakeFiles\runTests.dir
   OBJECT_FILE_DIR = CMakeFiles\runTests.dir
 
@@ -105,9 +105,9 @@ build CMakeFiles/runTests.dir/tests_main.cpp.obj: CXX_COMPILER__runTests_unscann
 #############################################
 # Link the executable runTests.exe
 
-build runTests.exe: CXX_EXECUTABLE_LINKER__runTests_Debug CMakeFiles/runTests.dir/tests_main.cpp.obj | lib/libgtest.a lib/libgtest_main.a lib/libgtest.a || lib/libgtest.a lib/libgtest_main.a
+build runTests.exe: CXX_EXECUTABLE_LINKER__runTests_Debug CMakeFiles/runTests.dir/tests_main.cpp.obj
   FLAGS = -g
-  LINK_LIBRARIES = lib/libgtest.a  lib/libgtest_main.a  lib/libgtest.a  -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
+  LINK_LIBRARIES = -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   OBJECT_DIR = CMakeFiles\runTests.dir
   POST_BUILD = cd .
   PRE_LINK = cd .
